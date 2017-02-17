@@ -23,6 +23,8 @@
  */
 #include <SDL.h>
 #include <GL/glew.h>
+#include <GL/glu.h>
+
 
 /**
  * @brief initialize the 3d graphics system

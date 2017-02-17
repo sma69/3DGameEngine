@@ -22,6 +22,8 @@
 #include "graphics3d.h"
 #include "shader.h"
 
+
+
 int main(int argc, char *argv[])
 {
     GLuint vao;
@@ -53,7 +55,7 @@ int main(int argc, char *argv[])
     glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind any buffers
     
     slog("glError: %d", glGetError());
-    
+	
     while (bGameLoopRunning)
     {
         if ( SDL_PollEvent(&e) ) 
@@ -75,7 +77,8 @@ int main(int argc, char *argv[])
         glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0); //tell gl (shader!) how to interpret our vertex data
         glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)48); //color data is 48 bytes in to the array
         glDrawArrays(GL_TRIANGLES, 0, 3);
-        
+
+
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
         glUseProgram(0);

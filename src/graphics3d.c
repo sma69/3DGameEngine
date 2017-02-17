@@ -46,6 +46,11 @@ int graphics3d_init(int sw,int sh,int fullscreen,const char *project,Uint32 fram
                               sw, sh,
                               SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
     
+	if (__graphics3d_window == NULL)
+	{
+		slog("Fatal: Failed to create sdl window");
+		return -1;
+	}
     
     __graphics3d_gl_context = SDL_GL_CreateContext(__graphics3d_window);
     if (__graphics3d_gl_context == NULL)
