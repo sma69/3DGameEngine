@@ -25,7 +25,8 @@
 #include <GL/glew.h>
 #include <GL/glu.h>
 
-
+#define MAX_KEYS		1024
+#define MAX_BUTTONS		32
 /**
  * @brief initialize the 3d graphics system
  * @param sw the screen width you want

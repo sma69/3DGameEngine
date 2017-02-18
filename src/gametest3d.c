@@ -24,6 +24,7 @@
 
 
 
+
 int main(int argc, char *argv[])
 {
     GLuint vao;
@@ -41,6 +42,8 @@ int main(int argc, char *argv[])
     }; //we love you vertices!
     
     init_logger("gametest3d.log");
+
+	//if game window does not open to 1024x768 close program
     if (graphics3d_init(1024,768,1,"gametest3d",33) != 0)
     {
         return -1;
@@ -54,7 +57,8 @@ int main(int argc, char *argv[])
     glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices, GL_STATIC_DRAW); //formatting the data for the buffer
     glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind any buffers
     
-    slog("glError: %d", glGetError());
+    //test error message with error number
+	slog("glError: %d", glGetError());
 	
     while (bGameLoopRunning)
     {

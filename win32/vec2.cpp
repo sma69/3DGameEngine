@@ -11,13 +11,15 @@ namespace gt3d {namespace maths{
 
 	}
 
+	//ve2 declaration
 	vec2::vec2(const float& x, const float& y)
 	{
 		this->x = x;
 		this->y = y;
 
 	}
-
+	
+	//vector2 math functions
 	vec2& vec2::add(const vec2& other)
 	{
 		x += other.x;
@@ -47,6 +49,57 @@ namespace gt3d {namespace maths{
 		return *this;
 	}
 
+	//overloads math operator to allow addition between vectors
+	vec2& operator+(vec2 left, const vec2& right)
+	{
+		return left.add(right);
+	}
+	vec2& operator-(vec2 left, const vec2& right)
+	{
+		return left.subtract(right);
+	}
+	vec2& operator*(vec2 left, const vec2& right)
+	{
+		return left.multiply(right);
+	}
+	vec2& operator/(vec2 left, const vec2& right)
+	{
+		return left.divide(right);
+	}
+
+	//overloads other types of math operators
+	vec2& vec2::operator+=(const vec2& other)
+	{
+		
+		return add(other);
+	}
+	vec2& vec2::operator-=(const vec2& other)
+	{
+
+		return subtract(other);
+	}
+	vec2& vec2::operator*=(const vec2& other)
+	{
+
+		return multiply(other);
+	}
+	vec2& vec2::operator/=(const vec2& other)
+	{
+
+		return divide(other);
+	}
+	
+	bool vec2::operator==(const vec2& other)
+	{
+
+		return x == other.x && y == other.y;
+	}
+	bool vec2::operator!=(const vec2& other)
+	{
+
+		return !(*this == other);
+	}
+	//overloads output stream to print vector as below
 	std::ostream& operator<<(std::ostream& stream, const vec2& vector)
 	{
 		stream << "vec2: (" << vector.x << "," << vector.y << ")";
