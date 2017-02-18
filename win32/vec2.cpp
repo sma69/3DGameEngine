@@ -50,19 +50,19 @@ namespace gt3d {namespace maths{
 	}
 
 	//overloads math operator to allow addition between vectors
-	vec2& operator+(vec2 left, const vec2& right)
+	vec2 operator+(vec2 left, const vec2& right)
 	{
 		return left.add(right);
 	}
-	vec2& operator-(vec2 left, const vec2& right)
+	vec2 operator-(vec2 left, const vec2& right)
 	{
 		return left.subtract(right);
 	}
-	vec2& operator*(vec2 left, const vec2& right)
+	vec2 operator*(vec2 left, const vec2& right)
 	{
 		return left.multiply(right);
 	}
-	vec2& operator/(vec2 left, const vec2& right)
+	vec2 operator/(vec2 left, const vec2& right)
 	{
 		return left.divide(right);
 	}
