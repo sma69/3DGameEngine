@@ -16,6 +16,7 @@
     <ClCompile Include="..\src\shader.c" />
     <ClCompile Include="..\src\simple_logger.c" />
     <ClCompile Include="mat4.cpp" />
+    <ClCompile Include="mesh.c" />
     <ClCompile Include="vec2.cpp" />
     <ClCompile Include="vec3.cpp" />
     <ClCompile Include="vec4.cpp" />
@@ -24,11 +25,14 @@
     <ClInclude Include="..\include\graphics3d.h" />
     <ClInclude Include="..\include\shader.h" />
     <ClInclude Include="..\include\simple_logger.h" />
+    <ClInclude Include="matrix.h" />
     <ClInclude Include="mat4.h" />
     <ClInclude Include="maths.h" />
+    <ClInclude Include="mesh.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />
     <ClInclude Include="vec4.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C8351047-707B-4D68-A801-6749E9509337}</ProjectGuid>
