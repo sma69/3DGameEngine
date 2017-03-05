@@ -9,10 +9,23 @@ namespace gt3d {	namespace maths {
 
 	struct mat4 {
 
-		float elements[4 * 4];
+
+		union
+		{
+			float elements[4 * 4];
+			vec4 columns[4];
+		};
 
 		mat4();
 		mat4(float diagonal);
+
+
+
+		vec4 getColumn(int index)
+		{
+			index *= 4;
+			return vec4(elements[index], elements[index + 1], elements[index + 2], elements[index + 3]);
+		}
 		
 		//identity matrix
 		static mat4 identity();

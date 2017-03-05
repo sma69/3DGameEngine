@@ -11,12 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\gametest3d.c" />
-    <ClCompile Include="..\src\graphics3d.c" />
-    <ClCompile Include="..\src\shader.c" />
-    <ClCompile Include="..\src\simple_logger.c" />
+    <ClCompile Include="..\src\gametest3d.cpp" />
+    <ClCompile Include="..\src\graphics3d.cpp" />
+    <ClCompile Include="..\src\shader.cpp" />
+    <ClCompile Include="..\src\simple_logger.cpp" />
     <ClCompile Include="mat4.cpp" />
-    <ClCompile Include="mesh.c" />
+    <ClCompile Include="mesh.cpp" />
     <ClCompile Include="vec2.cpp" />
     <ClCompile Include="vec3.cpp" />
     <ClCompile Include="vec4.cpp" />

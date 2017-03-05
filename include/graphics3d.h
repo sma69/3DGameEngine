@@ -25,28 +25,34 @@
 #include <GL/glew.h>
 #include <GL/glu.h>
 
+
+namespace gt3d {
+	namespace graphics {
+
+
 #define MAX_KEYS		1024
 #define MAX_BUTTONS		32
-/**
- * @brief initialize the 3d graphics system
- * @param sw the screen width you want
- * @param sh the screen height you want
- * @param fullscreen set true to initialize to fullscreen
- * @param project the name to appear on the game window
- * @param frameDelay the desired delay (in ms) between frames
- * @return -1 on error, 0 otherwise
- */
-int graphics3d_init(int sw,int sh,int fullscreen,const char *project, Uint32 frameDelay);
+		/**
+		 * @brief initialize the 3d graphics system
+		 * @param sw the screen width you want
+		 * @param sh the screen height you want
+		 * @param fullscreen set true to initialize to fullscreen
+		 * @param project the name to appear on the game window
+		 * @param frameDelay the desired delay (in ms) between frames
+		 * @return -1 on error, 0 otherwise
+		 */
+		int graphics3d_init(int sw, int sh, int fullscreen, const char *project, Uint32 frameDelay);
 
-/**
- * @brief get the active shader program index
- * @return 0 on error or the index of the active shader program
- */
-GLuint graphics3d_get_shader_program();
+		/**
+		 * @brief get the active shader program index
+		 * @return 0 on error or the index of the active shader program
+		 */
+		GLuint graphics3d_get_shader_program();
 
-/**
- * @brief advance the frame, taking into account desired frame rate
- */
-void graphics3d_next_frame();
-
+		/**
+		 * @brief advance the frame, taking into account desired frame rate
+		 */
+		void graphics3d_next_frame();
+	}
+}
 #endif

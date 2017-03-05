@@ -13,20 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\C">
+      <UniqueIdentifier>{2a0f70f1-3f7b-4b2e-8266-8a5dc6f1404d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core Files">
+      <UniqueIdentifier>{c795efc1-1ee7-4c62-a314-a4edfbbc432e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\simple_logger.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\graphics3d.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\shader.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\gametest3d.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vec2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,20 +33,23 @@
     <ClCompile Include="mat4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mesh.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\src\gametest3d.cpp">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\shader.cpp">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphics3d.cpp">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh.cpp">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\simple_logger.cpp">
+      <Filter>Source Files\Core Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\graphics3d.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\simple_logger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -68,14 +65,23 @@
     <ClInclude Include="mat4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\shader.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\simple_logger.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
     <ClInclude Include="vector.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\C</Filter>
     </ClInclude>
     <ClInclude Include="matrix.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics3d.h">
+      <Filter>Header Files\C</Filter>
     </ClInclude>
     <ClInclude Include="mesh.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\C</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

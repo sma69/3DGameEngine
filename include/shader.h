@@ -21,9 +21,15 @@
     SOFTWARE.
  */
 #include <GL/glew.h>
+#include <SDL.h>
+
+namespace gt3d {
+	namespace graphics{
 
 GLuint BuildShaderProgram(const char *vsPath, const char *fsPath);
 GLuint CreateShader(GLenum eShaderType, const char *strShaderFile);
 
+	}
+}
 
 #endif
