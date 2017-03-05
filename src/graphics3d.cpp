@@ -3,12 +3,13 @@
 #include "simple_logger.h"
 #include "shader.h"
 
+
 namespace gt3d {
 	namespace graphics {
 		static SDL_GLContext __graphics3d_gl_context;
-		static SDL_Window  * __graphics3d_window = NULL;
+		static SDL_Window* __graphics3d_window = NULL;
 		static GLuint        __graphics3d_shader_program;
-		static Uint32        __graphics3d_frame_delay = 33;
+		static uint32_t       __graphics3d_frame_delay = 33;
 
 		void graphics3d_close();
 
@@ -19,8 +20,8 @@ namespace gt3d {
 
 		void graphics3d_next_frame()
 		{
-			static Uint32 then = 0;
-			Uint32 now;
+			static uint32_t then = 0;
+			uint32_t now;
 			SDL_GL_SwapWindow(__graphics3d_window);
 			now = SDL_GetTicks();
 			if ((now - then) < __graphics3d_frame_delay)
@@ -30,7 +31,7 @@ namespace gt3d {
 			then = now;
 		}
 
-		int graphics3d_init(int sw, int sh, int fullscreen, const char *project, Uint32 frameDelay)
+		int graphics3d_init(int sw, int sh, int fullscreen, const char *project, uint32_t frameDelay)
 		{
 			const unsigned char *version;
 			GLenum glew_status;
@@ -48,7 +49,6 @@ namespace gt3d {
 				SDL_WINDOWPOS_UNDEFINED,
 				sw, sh,
 				SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
-
 
 			if (__graphics3d_window == NULL)
 			{

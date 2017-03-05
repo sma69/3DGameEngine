@@ -22,6 +22,7 @@
  *    SOFTWARE.
  */
 #include <SDL.h>
+#include <cstdlib>
 #include <GL/glew.h>
 #include <GL/glu.h>
 
@@ -41,7 +42,7 @@ namespace gt3d {
 		 * @param frameDelay the desired delay (in ms) between frames
 		 * @return -1 on error, 0 otherwise
 		 */
-		int graphics3d_init(int sw, int sh, int fullscreen, const char *project, Uint32 frameDelay);
+		int graphics3d_init(int sw, int sh, int fullscreen, const char *project, uint32_t frameDelay);
 
 		/**
 		 * @brief get the active shader program index

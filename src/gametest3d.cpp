@@ -22,9 +22,11 @@
 #include "simple_logger.h"
 #include "graphics3d.h"
 #include "shader.h"
+#define main SDL_main
 
 namespace gt3d {
 	namespace graphics {
+
 
 		int main(int argc, char *argv[])
 		{
