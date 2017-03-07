@@ -8,6 +8,7 @@ namespace gt3d {
 
 		void window_resize(GLFWwindow *window, int width, int height);
 
+		/*Get GLFW window called*/
 		Window::Window(const char *title, int width, int height)
 		{
 			m_Title = title;

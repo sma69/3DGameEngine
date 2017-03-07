@@ -16,6 +16,7 @@
     <ClCompile Include="..\src\shader.cpp" />
     <ClCompile Include="mat4.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="vec2.cpp" />
     <ClCompile Include="vec3.cpp" />
     <ClCompile Include="vec4.cpp" />
@@ -26,6 +27,8 @@
     <ClInclude Include="mat4.h" />
     <ClInclude Include="maths.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="simple_logger.cpp" />
+    <ClInclude Include="simple_logger.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />
     <ClInclude Include="vec4.h" />

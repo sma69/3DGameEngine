@@ -22,6 +22,7 @@
 #include <iostream>
 #include <glfw3.h>
 #include "graphics3d.h"
+#include "simple_logger.h"
 
 
 
@@ -31,7 +32,7 @@ int main()
 	using namespace graphics;
 
 	Window window("GameTest3D 2017", 960, 540);
-	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
@@ -45,7 +46,7 @@ int main()
 		window.clear();
 		double x, y;
 		window.getMousePosition(x, y);
-		std::cout << x << ", " << y << std::endl;
+		
 #if 1
 		glBegin(GL_QUADS);
 		glVertex2f(-0.5f, -0.5f);

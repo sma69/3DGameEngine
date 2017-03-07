@@ -51,6 +51,7 @@ namespace gt3d {
 			GLFWwindow *m_Window;
 			bool m_Closed;
 
+			/*Define Keys and buttons*/
 			bool m_Keys[MAX_KEYS];
 			bool m_MouseButtons[MAX_BUTTONS];
 			double mx, my;
@@ -61,14 +62,18 @@ namespace gt3d {
 			void update();
 			bool closed() const;
 
+			/*Screen Width*/
 			int getWidth() const { return m_Width; }
 			int getHeight() const { return m_Height; }
 
+			/*Key is Pressed*/
 			bool isKeyPressed(unsigned int keycode) const;
 			bool isMouseButtonPressed(unsigned int button) const;
 			void getMousePosition(double& x, double& y) const;
 		private:
 			bool init();
+
+			/*Input Callbacks*/
 			friend static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 			friend static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 			friend static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);

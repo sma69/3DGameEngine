@@ -45,6 +45,9 @@
     <ClCompile Include="shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vec2.h">
@@ -70,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="shader.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_logger.cpp">
+      <Filter>Source Files\Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_logger.h">
+      <Filter>Header Files\C</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
