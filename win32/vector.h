@@ -25,5 +25,6 @@ namespace gt3d {
 
 #define vector2d_add(a,b,c) (a.x = b.x + c.x, a.y=b.y + c.y)
 #define vector2d_set(a,b,c) (a.x = b, a.y = c)
+
 }
 #endif

@@ -1,5 +1,6 @@
 #ifndef __MATRIX_H__
 #define __MATRIX_H__
+
 namespace gt3d {
 	typedef float Matrix3[9];
 
@@ -15,5 +16,5 @@ namespace gt3d {
 		Matrix4 a, /**<line item parameter descriptions*/
 		Matrix4 b
 	);
-}
+	}
 #endif

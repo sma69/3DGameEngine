@@ -1,10 +1,8 @@
-#include <cstdlib>
 #include <stdlib.h>
 #include <stdio.h>
 
 #include "mesh.h"
 #include "simple_logger.h"
-
 namespace gt3d {
 	Mesh * mesh_load_from_obj(char * filename)
 	{
@@ -146,6 +144,5 @@ namespace gt3d {
 		*mesh = NULL;
 	}
 }
-
 
 /*eol@eof*/

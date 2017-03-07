@@ -14,25 +14,21 @@
     <ClCompile Include="..\src\gametest3d.cpp" />
     <ClCompile Include="..\src\graphics3d.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
-    <ClCompile Include="..\src\simple_logger.cpp" />
     <ClCompile Include="mat4.cpp" />
-    <ClCompile Include="mesh.cpp" />
+    <ClCompile Include="shader.cpp" />
     <ClCompile Include="vec2.cpp" />
     <ClCompile Include="vec3.cpp" />
     <ClCompile Include="vec4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\graphics3d.h" />
-    <ClInclude Include="..\include\shader.h" />
-    <ClInclude Include="..\include\simple_logger.h" />
-    <ClInclude Include="matrix.h" />
+    <ClInclude Include="fileUtils.h" />
     <ClInclude Include="mat4.h" />
     <ClInclude Include="maths.h" />
-    <ClInclude Include="mesh.h" />
+    <ClInclude Include="shader.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />
     <ClInclude Include="vec4.h" />
-    <ClInclude Include="vector.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C8351047-707B-4D68-A801-6749E9509337}</ProjectGuid>
@@ -72,11 +68,14 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_image.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <SubSystem>
+      </SubSystem>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Users\User\IT485\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

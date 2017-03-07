@@ -4,6 +4,7 @@
 
 namespace gt3d {
 	namespace graphics {
+
 		GLuint BuildShaderProgram(const char *vsPath, const char *fsPath)
 		{
 			GLint infoLogLength;
@@ -100,5 +101,4 @@ namespace gt3d {
 		}
 	}
 }
-
 /*eol@eof*/

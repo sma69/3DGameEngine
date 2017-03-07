@@ -1,108 +1,130 @@
-#include <cstdlib>
+
 #include "graphics3d.h"
 #include "simple_logger.h"
 #include "shader.h"
 
-
 namespace gt3d {
-	namespace graphics {
-		static SDL_GLContext __graphics3d_gl_context;
-		static SDL_Window* __graphics3d_window = NULL;
-		static GLuint        __graphics3d_shader_program;
-		static uint32_t       __graphics3d_frame_delay = 33;
+	namespace graphics{
 
-		void graphics3d_close();
+		void window_resize(GLFWwindow *window, int width, int height);
 
-		GLuint graphics3d_get_shader_program()
+		Window::Window(const char *title, int width, int height)
 		{
-			return __graphics3d_shader_program;
+			m_Title = title;
+			m_Width = width;
+			m_Height = height;
+			if (!init())
+				glfwTerminate();
+
+			for (int i = 0; i < MAX_KEYS; i++)
+			{
+				m_Keys[i] = false;
+			}
+			for (int i = 0; i < MAX_BUTTONS; i++)
+			{
+				m_MouseButtons[i] = false;
+			}
+		}
+		Window::~Window()
+		{
+			glfwTerminate();
 		}
 
-		void graphics3d_next_frame()
+		bool Window::init()
 		{
-			static uint32_t then = 0;
-			uint32_t now;
-			SDL_GL_SwapWindow(__graphics3d_window);
-			now = SDL_GetTicks();
-			if ((now - then) < __graphics3d_frame_delay)
+			if (!glfwInit())
 			{
-				SDL_Delay(__graphics3d_frame_delay - (now - then));
+				std::cout << "Failed to initialize GLFW!" << std::endl;
+				return false;
 			}
-			then = now;
+			m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
+			if (!m_Window)
+			{
+				std::cout << "Failed to create GLFW window!" << std::endl;
+				return false;
+			}
+			glfwMakeContextCurrent(m_Window);
+			glfwSetWindowUserPointer(m_Window, this);
+			glfwSetWindowSizeCallback(m_Window, window_resize);
+			glfwSetKeyCallback(m_Window, key_callback);
+			glfwSetMouseButtonCallback(m_Window, mouse_button_callback);
+			glfwSetCursorPosCallback(m_Window, cursor_position_callback);
+
+
+			if (glewInit() != GLEW_OK)
+			{
+				std::cout << "Could not initialize GLEW!" << std::endl;
+				return false;
+			}
+
+
+			std::cout << "OpenGL" << glGetString(GL_VERSION) << std::endl;
+			return true;
+
 		}
 
-		int graphics3d_init(int sw, int sh, int fullscreen, const char *project, uint32_t frameDelay)
+		bool Window::isKeyPressed(unsigned int keycode) const
 		{
-			const unsigned char *version;
-			GLenum glew_status;
-
-			if (SDL_Init(SDL_INIT_VIDEO) < 0)
-			{
-				slog("failed to initialize SDL!");
-				return -1;
-			}
-			atexit(SDL_Quit);
-			__graphics3d_frame_delay = frameDelay;
-
-			__graphics3d_window = SDL_CreateWindow(project ? project : "gametest3d",
-				SDL_WINDOWPOS_UNDEFINED,
-				SDL_WINDOWPOS_UNDEFINED,
-				sw, sh,
-				SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
-
-			if (__graphics3d_window == NULL)
-			{
-				slog("FATAL: failed to create SDL window!");
-				return -1;
-			}
-
-			__graphics3d_gl_context = SDL_GL_CreateContext(__graphics3d_window);
-			if (__graphics3d_gl_context == NULL)
-			{
-				slog("There was an error creating the OpenGL context!\n");
-				return -1;
-			}
-
-			version = glGetString(GL_VERSION);
-			if (version == NULL)
-			{
-				slog("There was an error getting opengl version number!\n");
-				return -1;
-			}
-
-			SDL_GL_MakeCurrent(__graphics3d_window, __graphics3d_gl_context);
-
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-
-			//MUST make a context AND make it current BEFORE glewInit()!
-			glewExperimental = GL_TRUE;
-			glew_status = glewInit();
-			if (glew_status != 0)
-			{
-				slog("Error: %s", glewGetErrorString(glew_status));
-				return -1;
-			}
-
-
-			__graphics3d_shader_program = BuildShaderProgram("shaders/vs1.glsl", "shaders/fs1.glsl");
-			if (__graphics3d_shader_program == -1)
-			{
-				slog("Error: failed to create shader program");
-				return -1;
-			}
-
-			slog("Using program %d", __graphics3d_shader_program);
-
-			atexit(graphics3d_close);
-			return 0;
+			//TODO: Log this!
+			if (keycode >= MAX_KEYS)
+				return false;
+			return m_Keys[keycode];
 		}
 
-		void graphics3d_close()
+		bool Window::isMouseButtonPressed(unsigned int button) const
 		{
-			SDL_GL_DeleteContext(__graphics3d_gl_context);
+			//TODO: Log this!
+			if (button >= MAX_BUTTONS)
+				return false;
+			return m_MouseButtons[button];
 		}
-	}
-}
 
-/*eol@eof*/
+		void Window::getMousePosition(double& x, double& y) const
+		{
+			x = mx;
+			y = my;
+		}
+
+		void Window::clear() const
+		{
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}
+
+
+		void Window::update()
+		{
+			glfwPollEvents();
+			//			glfwGetFramebufferSize(m_Window, &m_Width, &m_Height);
+			glfwSwapBuffers(m_Window);
+
+		}
+
+		bool Window::closed() const
+		{
+			return glfwWindowShouldClose(m_Window) == 1;
+		}
+
+		void window_resize(GLFWwindow *window, int width, int height)
+		{
+			glViewport(0, 0, width, height);
+		}
+
+		void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			win->m_Keys[key] = action != GLFW_RELEASE;
+		}
+
+		void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			win->m_MouseButtons[button] = action != GLFW_RELEASE;
+		}
+		void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
+		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			win->mx = xpos;
+			win->my = ypos;
+		}
+
+}}

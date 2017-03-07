@@ -2,7 +2,6 @@
 #define __MESH_H__
 
 #include "vector.h"
-
 namespace gt3d {
 	typedef struct
 	{
