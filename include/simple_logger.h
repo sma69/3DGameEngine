@@ -26,7 +26,7 @@
 
   @param log_file_path the file to log to
 */
-namespace gt3d {
+
 	void init_logger(const char *log_file_path);
 
 	/**
@@ -36,7 +36,7 @@ namespace gt3d {
 	*/
 #define slog(...) _slog(__FILE__,__LINE__,__VA_ARGS__)
 	void _slog(char *f, int l, char *msg, ...);
-}
+
 
 #endif
 

@@ -3,7 +3,7 @@
 
 #include "vector.h"
 
-namespace gt3d {
+
 	typedef struct
 	{
 		unsigned int v;	/**<vertex index for the corner*/
@@ -36,5 +36,5 @@ namespace gt3d {
 	@param mesh a pointer to your mesh pointer
 	*/
 	void mesh_free(Mesh **mesh);
-}
+
 #endif

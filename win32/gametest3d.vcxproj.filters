@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="vec2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vec3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,19 +30,25 @@
     <ClCompile Include="mat4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\gametest3d.cpp">
+    <ClCompile Include="mesh.c">
       <Filter>Source Files\Core Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\shader.cpp">
+    <ClCompile Include="vec2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\simple_logger.c">
       <Filter>Source Files\Core Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphics3d.cpp">
+    <ClCompile Include="..\src\graphics3d.c">
       <Filter>Source Files\Core Files</Filter>
     </ClCompile>
-    <ClCompile Include="mesh.cpp">
+    <ClCompile Include="..\src\gametest3d.c">
       <Filter>Source Files\Core Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\simple_logger.cpp">
+    <ClCompile Include="..\src\shader.c">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix.c">
       <Filter>Source Files\Core Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -60,9 +63,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="maths.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="mat4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\shader.h">
@@ -82,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="mesh.h">
       <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="mat4.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

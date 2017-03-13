@@ -7,7 +7,6 @@
 #include "mat4.h"
 
 
-namespace gt3d { namespace maths {
 
 
 
@@ -18,4 +17,4 @@ namespace gt3d { namespace maths {
 		}
 
 
-} }
+
