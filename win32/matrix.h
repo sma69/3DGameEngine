@@ -3,12 +3,13 @@
 
 #include "vector.h"
 
+
 	typedef float Matrix3[9];
 
 	typedef float Matrix4[16];
 
 	/**Elements matrix used to get matrix functions*/
-	Matrix4 elements;
+	float elements[4*4];
 
 	float matrix4_init();
 

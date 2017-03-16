@@ -51,6 +51,27 @@
     <ClCompile Include="matrix.c">
       <Filter>Source Files\Core Files</Filter>
     </ClCompile>
+    <ClCompile Include="sprite.c">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model.c">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="obj.c">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="body.c">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mgl_callback.c">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="entity.c">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="collisions.c">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vec2.h">
@@ -85,6 +106,27 @@
     </ClInclude>
     <ClInclude Include="mat4.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="obj.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="body.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="collisions.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="mgl_callback.h">
+      <Filter>Header Files\C</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
