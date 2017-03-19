@@ -3,6 +3,7 @@
 #include "simple_logger.h"
 #include "shader.h"
 
+
 namespace gt3d {
 	namespace graphics{
 

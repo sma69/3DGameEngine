@@ -13,72 +13,89 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\C">
-      <UniqueIdentifier>{2a0f70f1-3f7b-4b2e-8266-8a5dc6f1404d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Core Files">
       <UniqueIdentifier>{c795efc1-1ee7-4c62-a314-a4edfbbc432e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="vec2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vec3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vec4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mat4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\gametest3d.cpp">
-      <Filter>Source Files\Core Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\graphics3d.cpp">
       <Filter>Source Files\Core Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\shader.cpp">
       <Filter>Source Files\Core Files</Filter>
     </ClCompile>
-    <ClCompile Include="shader.cpp">
+    <ClCompile Include="..\src\gametest3d.cpp">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mat4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files\Core Files</Filter>
+    <ClCompile Include="..\src\mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\simple_logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\vec2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\vec3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\vec4.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="vec2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vec3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vec4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="maths.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="mat4.h">
+    <ClInclude Include="..\include\fileUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\graphics3d.h">
-      <Filter>Header Files\C</Filter>
-    </ClInclude>
-    <ClInclude Include="fileUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shader.h">
+    <ClInclude Include="..\include\mat4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="simple_logger.cpp">
-      <Filter>Source Files\Core Files</Filter>
+    <ClInclude Include="..\include\maths.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="simple_logger.h">
-      <Filter>Header Files\C</Filter>
+    <ClInclude Include="..\include\matrix.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\objects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\simple_logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\vec2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\vec3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\vec4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\maths_func.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="basic.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="basic.vert">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

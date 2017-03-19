@@ -1,35 +1,46 @@
-#ifndef __SHADER_H__
-#define __SHADER_H__
-/**
- * shader
- * @license The MIT License (MIT)
-   @copyright Copyright (c) 2015 EngineerOfLies
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
- */
+#pragma once
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
 #include <GL/glew.h>
-#include <SDL.h>
+#include "maths.h"
+#include "fileutils.h"
 
-namespace gt3d {
-	namespace graphics {
-
-		GLuint BuildShaderProgram(const char *vsPath, const char *fsPath);
-		GLuint CreateShader(GLenum eShaderType, const char *strShaderFile);
+namespace gt3d { namespace graphics {
 
 
-	}
-}
-#endif
+	class Shader
+	{
+	private:
+		GLuint m_ShaderID;
+		const char *m_VertPath;
+		const char *m_FragPath;
+	public:
+		Shader(const char* vertPath, const char* fragPath);
+		~Shader();
+
+		/**Functions set values for shaders in file*/
+		void setUniform1f(const GLchar* name, float value);
+		void setUniform1i(const GLchar* name, int value);
+		void setUniform2f(const GLchar* name, const maths::vec2& vector);
+		void setUniform3f(const GLchar* name, const maths::vec3& vector);
+		void setUniform4f(const GLchar* name, const maths::vec4& vector);
+		void setUniformMat4(const GLchar* name, const maths::mat4& matrix);
+
+		void enable() const;
+		void disable() const;
+	private:
+		GLuint load();
+		/**Gets values for shaders in function*/
+		GLint getUniformLocation(const GLchar* name);
+
+	};
+
+
+
+
+} }
