@@ -7,6 +7,8 @@ static int __entity_initialized = 0;
 
 static void entity_deinitialize();
 
+
+/**initializes entity in the scene and creates an entity list*/
 void entity_init(int maxEntity)
 {
 	if (__entity_initialized)
@@ -22,6 +24,7 @@ void entity_init(int maxEntity)
 	atexit(entity_deinitialize);
 }
 
+/**Takes Entities out of the list of preInitialized Entities*/
 static void entity_deinitialize()
 {
 	int i;
@@ -37,6 +40,7 @@ static void entity_deinitialize()
 	__entity_initialized = 0;
 }
 
+/**Disables Entity in Scene*/
 void entity_free(Entity *ent)
 {
 	if (!ent)
@@ -49,6 +53,7 @@ void entity_free(Entity *ent)
 	FreeSprite(ent->texture);
 }
 
+/**Creates new Entity*/
 Entity *entity_new()
 {
 	int i;
@@ -58,14 +63,15 @@ Entity *entity_new()
 		{
 			memset(&__entity_list[i], 0, sizeof(Entity));
 			__entity_list[i].inuse = 1;
-			vec3d_set(__entity_list[i].scale, 1, 1, 1);
-			vec4d_set(__entity_list[i].color, 1, 1, 1, 1);
+			vector3d_set(__entity_list[i].scale, 1, 1, 1);
+			vector4d_set(__entity_list[i].color, 1, 1, 1, 1);
 			return &__entity_list[i];
 		}
 	}
 	return NULL;
 }
 
+/**Makes all Entity Do something at the same time*/
 void entity_think_all()
 {
 	int i;
@@ -79,6 +85,7 @@ void entity_think_all()
 	}
 }
 
+/**Draws all Entities in the entity list*/
 void entity_draw_all()
 {
 	int i;

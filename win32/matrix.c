@@ -1,11 +1,13 @@
 #pragma once
 #include "matrix.h"
 
-float matrix4_init()
+float matrix4_init(const float* m)
 {
 	//initialize the matrix
 	for (int i = 0; i < 4 * 4; i++)
 		elements[i] = 0.0f;
+
+	memcpy(m, elements, 16 * sizeof(float));
 	
 }
 

@@ -58,8 +58,8 @@ int sphere_cube_intersection(
 	offset.y = -(box.y + (size.y * 0.5));
 	offset.z = -(box.z + (size.z * 0.5));
 
-	vec3d_add(box, box, offset);
-	vec3d_add(center, center, offset);
+	vector3d_add(box, box, offset);
+	vector3d_add(center, center, offset);
 	center.x = fabs(center.x);
 	center.y = fabs(center.y);
 	center.z = fabs(center.z);

@@ -21,6 +21,33 @@
 #include "simple_logger.h"
 #include "graphics3d.h"
 #include "shader.h"
+#include "obj.h"
+#include "vector.h"
+#include "sprite.h"
+#include "entity.h"
+
+
+void set_camera(Vector3D position, Vector3D rotation);
+
+void think(Entity *self)
+{
+	if (!self)return;
+	switch (self->state)
+	{
+	case 0:
+		self->frame = 0;
+		break;
+	case 1:
+		self->frame += 0.3;
+		if (self->frame >= 24)self->frame = 0;
+		break;
+	case 2:
+		self->frame -= 0.3;
+		if (self->frame < 0)self->frame = 23;
+		break;
+	}
+	self->objModel = self->objAnimation[(int)self->frame];
+}
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +55,9 @@ int main(int argc, char *argv[])
 	GLuint triangleBufferObject;
 	char bGameLoopRunning = 1;
 	SDL_Event e;
+	Obj *player;
+	Vector3D cameraPosition = { 0,-10,0.3 };
+	Vector3D cameraRotation = { 90,0,0 };
 	const float triangleVertices[] = {
 		0.0f, 0.5f, 0.0f, 1.0f,
 		0.5f, -0.366f, 0.0f, 1.0f,
@@ -45,6 +75,14 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
+	model_init();
+	obj_init();
+	entity_init(255);
+
+	player = obj_load("models/cube.obj");
+
+
+
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao); //make our vertex array object, we need it to restore state we set after binding it. Re-binding reloads the state associated with it.
 
@@ -61,33 +99,129 @@ int main(int argc, char *argv[])
 		{
 			if (e.type == SDL_QUIT)
 				bGameLoopRunning = 0;
-			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
-				bGameLoopRunning = 0;
+			else if (e.type == SDL_KEYDOWN)
+			{
+				if (e.key.keysym.sym == SDLK_ESCAPE)
+				{
+					bGameLoopRunning = 0;
+				}
+				else if (e.key.keysym.sym == SDLK_SPACE)
+				{
+					cameraPosition.z++;
+				}
+				else if (e.key.keysym.sym == SDLK_z)
+				{
+					cameraPosition.z--;
+				}
+				else if (e.key.keysym.sym == SDLK_w)
+				{
+					vector3d_add(
+						cameraPosition,
+						cameraPosition,
+						vec3d(
+							-sin(cameraRotation.z * DEGTORAD),
+							cos(cameraRotation.z * DEGTORAD),
+							0
+						));
+				}
+				else if (e.key.keysym.sym == SDLK_s)
+				{
+					vector3d_add(
+						cameraPosition,
+						cameraPosition,
+						vec3d(
+							sin(cameraRotation.z * DEGTORAD),
+							-cos(cameraRotation.z * DEGTORAD),
+							0
+						));
+				}
+				else if (e.key.keysym.sym == SDLK_d)
+				{
+					vector3d_add(
+						cameraPosition,
+						cameraPosition,
+						vec3d(
+							cos(cameraRotation.z * DEGTORAD),
+							sin(cameraRotation.z * DEGTORAD),
+							0
+						));
+				}
+				else if (e.key.keysym.sym == SDLK_a)
+				{
+					vector3d_add(
+						cameraPosition,
+						cameraPosition,
+						vec3d(
+							-cos(cameraRotation.z * DEGTORAD),
+							-sin(cameraRotation.z * DEGTORAD),
+							0
+						));
+				}
+				else if (e.key.keysym.sym == SDLK_LEFT)
+				{
+					cameraRotation.z += 1;
+				}
+				else if (e.key.keysym.sym == SDLK_RIGHT)
+				{
+					cameraRotation.z -= 1;
+				}
+				else if (e.key.keysym.sym == SDLK_UP)
+				{
+					cameraRotation.x += 1;
+				}
+				else if (e.key.keysym.sym == SDLK_DOWN)
+				{
+					cameraRotation.x -= 1;
+				}
+			}
+
+			glClearColor(0.0, 0.0, 0.0, 0.0);
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			/* drawing code in here! */
+			glUseProgram(graphics3d_get_shader_program());
+
+			glBindBuffer(GL_ARRAY_BUFFER, triangleBufferObject); //bind the buffer we're applying attributes to
+			glEnableVertexAttribArray(0); //0 is our index, refer to "location = 0" in the vertex shader
+			glEnableVertexAttribArray(1); //attribute 1 is for vertex color data
+
+			glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0); //tell gl (shader!) how to interpret our vertex data
+			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)(12 * sizeof(float))); //color data is 48 bytes in to the array
+
+			glDrawArrays(GL_TRIANGLES, 0, 3);
+
+			glDisableVertexAttribArray(0);
+			glDisableVertexAttribArray(1);
+
+
+			glUseProgram(0);
+			/* drawing code above here! */
+
+			entity_draw_all();
+			glPushMatrix();
+			glTranslatef(-5, 0, 0);
+			obj_draw(
+				player,
+				vec3d(0, 0, 0),
+				vec3d(0, 0, 0),
+				vec3d(1, 1, 1),
+				vec4d(1, 0, 0, 1),
+				NULL
+			);
+			
+			graphics3d_next_frame();
 		}
-
-		glClearColor(0.0, 0.0, 0.0, 0.0);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		/* drawing code in here! */
-		glUseProgram(graphics3d_get_shader_program());
-
-		glBindBuffer(GL_ARRAY_BUFFER, triangleBufferObject); //bind the buffer we're applying attributes to
-		glEnableVertexAttribArray(0); //0 is our index, refer to "location = 0" in the vertex shader
-		glEnableVertexAttribArray(1); //attribute 1 is for vertex color data
-
-		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0); //tell gl (shader!) how to interpret our vertex data
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)(12 * sizeof(float))); //color data is 48 bytes in to the array
-
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
-
-		glUseProgram(0);
-		/* drawing code above here! */
-		graphics3d_next_frame();
+		return 0;
 	}
-	return 0;
 }
 
+void set_camera(Vector3D position, Vector3D rotation)
+{
+	glRotatef(-rotation.x, 1.0f, 0.0f, 0.0f);
+	glRotatef(-rotation.y, 0.0f, 1.0f, 0.0f);
+	glRotatef(-rotation.z, 0.0f, 0.0f, 1.0f);
+	glTranslatef(-position.x,
+		-position.y,
+		-position.z);
+}
 /*eol@eof*/

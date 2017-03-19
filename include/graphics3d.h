@@ -24,6 +24,18 @@
 #include <SDL.h>
 #include <GL/glew.h>
 
+
+
+#define EPSILON   1e-6f
+
+#define TWOPI 6.283185308
+
+/* conversion factor for converting from radians to degrees*/
+#define RADTODEG  57.295779513082
+
+/* conversion factor for converting from degrees to radians*/
+#define DEGTORAD  0.017453292519943295769236907684886
+
 /**
 * @brief initialize the 3d graphics system
 * @param sw the screen width you want

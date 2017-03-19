@@ -15,11 +15,11 @@
     <ClCompile Include="..\src\graphics3d.c" />
     <ClCompile Include="..\src\shader.c" />
     <ClCompile Include="..\src\simple_logger.c" />
+    <ClCompile Include="..\src\vector.c" />
     <ClCompile Include="body.c" />
     <ClCompile Include="collisions.c" />
     <ClCompile Include="entity.c" />
     <ClCompile Include="mat4.cpp" />
-    <ClCompile Include="matrix.c" />
     <ClCompile Include="mesh.c" />
     <ClCompile Include="mgl_callback.c" />
     <ClCompile Include="model.c" />
@@ -30,24 +30,24 @@
     <ClCompile Include="vec4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\body.h" />
+    <ClInclude Include="..\include\collisions.h" />
+    <ClInclude Include="..\include\entity.h" />
     <ClInclude Include="..\include\graphics3d.h" />
+    <ClInclude Include="..\include\mat4.h" />
+    <ClInclude Include="..\include\maths.h" />
+    <ClInclude Include="..\include\mesh.h" />
+    <ClInclude Include="..\include\mgl_callback.h" />
+    <ClInclude Include="..\include\model.h" />
+    <ClInclude Include="..\include\obj.h" />
+    <ClInclude Include="..\include\objects.h" />
     <ClInclude Include="..\include\shader.h" />
     <ClInclude Include="..\include\simple_logger.h" />
-    <ClInclude Include="body.h" />
-    <ClInclude Include="collisions.h" />
-    <ClInclude Include="entity.h" />
-    <ClInclude Include="mgl_callback.h" />
-    <ClInclude Include="model.h" />
-    <ClInclude Include="matrix.h" />
-    <ClInclude Include="mat4.h" />
-    <ClInclude Include="maths.h" />
-    <ClInclude Include="mesh.h" />
-    <ClInclude Include="obj.h" />
-    <ClInclude Include="sprite.h" />
-    <ClInclude Include="vec2.h" />
-    <ClInclude Include="vec3.h" />
-    <ClInclude Include="vec4.h" />
-    <ClInclude Include="vector.h" />
+    <ClInclude Include="..\include\sprite.h" />
+    <ClInclude Include="..\include\vec2.h" />
+    <ClInclude Include="..\include\vec3.h" />
+    <ClInclude Include="..\include\vec4.h" />
+    <ClInclude Include="..\include\vector.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C8351047-707B-4D68-A801-6749E9509337}</ProjectGuid>
@@ -82,6 +82,7 @@
     <LibraryPath>D:\Users\User\IT485\lib\x86;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\..</OutDir>
     <IntDir>$(ProjectDir)\..</IntDir>
+    <SourcePath>D:\Users\User\IT485\gametest3d2017\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
