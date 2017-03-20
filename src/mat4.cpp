@@ -76,8 +76,8 @@ namespace gt3d { namespace maths{
 
 		return result.elements[2 + 2 * 4] = -2.0f / (far - near);   //position 10 = this equation
 
-		return result.elements[3 + 0 * 4] = (right + left) / (right - left);   //position 3 = this equation
-		return result.elements[3 + 1 * 4] = (top + bottom) / (top - bottom);   //position 7 = this equation
+		return result.elements[3 + 0 * 4] = (right + left) / (left - right);   //position 3 = this equation
+		return result.elements[3 + 1 * 4] = (top + bottom) / (bottom - top);   //position 7 = this equation
 		return result.elements[3 + 2 * 4] = -(far + near) / (far - near);   //position 11 = this equation
 	}
 	
