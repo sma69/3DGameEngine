@@ -7,7 +7,8 @@
 #include <sstream>
 #include <iostream>
 #include <GL/glew.h>
-#include "maths.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/type_ptr.hpp"
 #include "fileutils.h"
 
 namespace gt3d { namespace graphics {
@@ -26,10 +27,10 @@ namespace gt3d { namespace graphics {
 		/**Functions set values for shaders in file*/
 		void setUniform1f(const GLchar* name, float value);
 		void setUniform1i(const GLchar* name, int value);
-		void setUniform2f(const GLchar* name, const maths::vec2& vector);
-		void setUniform3f(const GLchar* name, const maths::vec3& vector);
-		void setUniform4f(const GLchar* name, const maths::vec4& vector);
-		void setUniformMat4(const GLchar* name, const maths::mat4& matrix);
+		void setUniform2f(const GLchar* name, const glm::vec2& vector);
+		void setUniform3f(const GLchar* name, const glm::vec3& vector);
+		void setUniform4f(const GLchar* name, const glm::vec4& vector);
+		void setUniformMat4(const GLchar* name, const glm::mat4& matrix);
 
 		void enable() const;
 		void disable() const;

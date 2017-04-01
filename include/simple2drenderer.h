@@ -3,6 +3,7 @@
 #include <deque>
 #include "renderer2d.h"
 
+
 namespace gt3d {  namespace graphics {
 
 	class Simple2DRenderer : public Renderer2D

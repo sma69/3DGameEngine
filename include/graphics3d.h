@@ -25,6 +25,9 @@
 #include <glfw3.h>
 #include <iostream>
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
 /**
 * @brief initialize the 3d graphics system
 * @param sw the screen width you want

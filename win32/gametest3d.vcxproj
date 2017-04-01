@@ -17,9 +17,11 @@
     <ClCompile Include="..\src\index_buffer.cpp" />
     <ClCompile Include="..\src\mat4.cpp" />
     <ClCompile Include="..\src\mesh.cpp" />
+    <ClCompile Include="..\src\obj.cpp" />
     <ClCompile Include="..\src\simple2drenderer.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
     <ClCompile Include="..\src\simple_logger.cpp" />
+    <ClCompile Include="..\src\sprite.cpp" />
     <ClCompile Include="..\src\vec2.cpp" />
     <ClCompile Include="..\src\vec3.cpp" />
     <ClCompile Include="..\src\vec4.cpp" />
@@ -29,18 +31,21 @@
     <ClInclude Include="..\include\buffer.h" />
     <ClInclude Include="..\include\fileUtils.h" />
     <ClInclude Include="..\include\graphics3d.h" />
+    <ClInclude Include="..\include\entity.h" />
+    <ClInclude Include="..\include\gui.h" />
     <ClInclude Include="..\include\index_buffer.h" />
     <ClInclude Include="..\include\mat4.h" />
     <ClInclude Include="..\include\maths.h" />
     <ClInclude Include="..\include\maths_func.h" />
     <ClInclude Include="..\include\matrix.h" />
     <ClInclude Include="..\include\mesh.h" />
-    <ClInclude Include="..\include\objects.h" />
+    <ClInclude Include="..\include\obj.h" />
     <ClInclude Include="..\include\renderable2d.h" />
     <ClInclude Include="..\include\renderer2d.h" />
     <ClInclude Include="..\include\shader.h" />
     <ClInclude Include="..\include\simple_logger.h" />
     <ClInclude Include="..\include\simple2drenderer.h" />
+    <ClInclude Include="..\include\sprite.h" />
     <ClInclude Include="..\include\vec2.h" />
     <ClInclude Include="..\include\vec3.h" />
     <ClInclude Include="..\include\vec4.h" />
@@ -96,7 +101,7 @@
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
       <SubSystem>
       </SubSystem>
-      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;jansson_d.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\Users\User\IT485\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

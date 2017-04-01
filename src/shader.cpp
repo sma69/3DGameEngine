@@ -116,25 +116,30 @@ namespace gt3d {
 			glUniform1i(getUniformLocation(name), value);
 		}
 
-		void Shader::setUniform2f(const GLchar* name, const maths::vec2& vector)
+		void Shader::setUniform2f(const GLchar* name, const glm::vec2& vector)
 		{
 			glUniform2f(getUniformLocation(name), vector.x, vector.y);
 		}
 
-		void Shader::setUniform3f(const GLchar* name, const maths::vec3& vector)
+		void Shader::setUniform3f(const GLchar* name, const glm::vec3& vector)
 		{
 			glUniform3f(getUniformLocation(name), vector.x, vector.y, vector.z);
 
 		}
 
-		void Shader::setUniform4f(const GLchar* name, const maths::vec4& vector)
+		void Shader::setUniform4f(const GLchar* name, const glm::vec4& vector)
 		{
 			glUniform4f(getUniformLocation(name), vector.x, vector.y, vector.z, vector.w);
 		}
 
-		void Shader::setUniformMat4(const GLchar* name, const maths::mat4& matrix)
+		void Shader::setUniformMat4(const GLchar* name, const glm::mat4& matrix)
 		{
-			glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, matrix.elements);
+			float elements[16] = { 0.0 };
+			const float *pSource = (const float*)glm::value_ptr(matrix);
+			for (int i = 0; i < 16; ++i)
+				elements[i] = pSource[i];
+
+			glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, elements);
 		}
 
 		void Shader::enable() const
