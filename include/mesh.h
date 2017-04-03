@@ -1,39 +1,69 @@
 #ifndef __MESH_H__
 #define __MESH_H__
 
-#include "vector.h"
+
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <vector>
+#include <GL/glew.h>
+
+#include "shader.h"
+#include "graphics3d.h"
+
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
+
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
 namespace gt3d {
-	typedef struct
-	{
-		unsigned int v;	/**<vertex index for the corner*/
-		unsigned int vt;/**<texel index for the corner*/
-		unsigned int vn;/**<normal index for the corner*/
-	}TriCorner;
+	namespace graphics {
 
-	typedef struct
-	{
-		TriCorner c[3];	/**<the three corners for the triangle*/
-	}Triangle;
+		struct Vertex {
+			glm::vec3 Position;
+			glm::vec3 Normal;
+			glm::vec2 TexCoords;
+		};
 
-	typedef struct
-	{
-		Vector3D *vertices;/**<vertex array*/
-		Vector2D *texels;  /**<texture element array*/
-		Vector3D *normals; /**<vertex normal array*/
-		Triangle *tris;    /**<triangle array*/
-	}Mesh;
+		struct Texture {
+			GLuint id;
+			std::string type;
+			aiString path;
+		};
 
-	/**
-	@brief load an obj file into the mesh data type
-	@param filename the path to the obj file to load
-	@returns NULL on error or an allocated mesh datastructure
-	*/
-	Mesh * mesh_load_from_obj(char * filename);
+		class Mesh {
+		public:
+			/*  Mesh Data  */
+			std::vector<Vertex> vertices;
+			std::vector<GLuint> indices;
+			std::vector<Texture> textures;
+			/*  Functions  */
+			/**Constructor */
+			Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures);
+			
+			/** Draw mesh from file*/
+			void Draw(Shader shader);
+		private:
+			/*  Render data  */
+			GLuint VAO, VBO, EBO;
+			/*  Functions    */
+			void setupMesh();
+		};
+		/**
+		@brief load an obj file into the mesh data type
+		@param filename the path to the obj file to load
+		@returns NULL on error or an allocated mesh datastructure
+		*/
+		Mesh * mesh_load_from_obj(char * filename);
 
-	/**
-	@brief frees the data associated with the mesh and set the pointer to NULL
-	@param mesh a pointer to your mesh pointer
-	*/
-	void mesh_free(Mesh **mesh);
+		/**
+		@brief frees the data associated with the mesh and set the pointer to NULL
+		@param mesh a pointer to your mesh pointer
+		*/
+		void mesh_free(Mesh **mesh);
+	}
 }
 #endif

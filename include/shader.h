@@ -21,6 +21,7 @@ namespace gt3d { namespace graphics {
 		const char *m_VertPath;
 		const char *m_FragPath;
 	public:
+		GLuint program;
 		Shader(const char* vertPath, const char* fragPath);
 		~Shader();
 
@@ -31,13 +32,15 @@ namespace gt3d { namespace graphics {
 		void setUniform3f(const GLchar* name, const glm::vec3& vector);
 		void setUniform4f(const GLchar* name, const glm::vec4& vector);
 		void setUniformMat4(const GLchar* name, const glm::mat4& matrix);
+		
 
+		/** Enable/Disable shader*/
 		void enable() const;
 		void disable() const;
 	private:
-		GLuint load();
 		/**Gets values for shaders in function*/
 		GLint getUniformLocation(const GLchar* name);
+		GLuint load();
 
 	};
 

@@ -1,10 +1,13 @@
 
 #include "graphics3d.h"
+
 #include "simple_logger.h"
 #include "shader.h"
 
 
 namespace gt3d {
+
+
 	namespace graphics{
 
 		void window_resize(GLFWwindow *window, int width, int height);
@@ -15,6 +18,7 @@ namespace gt3d {
 			m_Title = title;
 			m_Width = width;
 			m_Height = height;
+
 			if (!init())
 				glfwTerminate();
 
@@ -117,13 +121,22 @@ namespace gt3d {
 			glViewport(0, 0, width, height);
 		}
 
-		void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+		void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 		{
 			Window* win = (Window*)glfwGetWindowUserPointer(window);
 			win->m_Keys[key] = action != GLFW_RELEASE;
-		}
 
-		void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+			if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+				glfwSetWindowShouldClose(window, GL_TRUE);
+			if (key >= 0 && key < 1024)
+			{
+				if (action == GLFW_PRESS)
+					win->m_Keys[key] = true;
+				else if (action == GLFW_RELEASE)
+					win->m_Keys[key] = false;
+			}
+		}
+		void mouse_button_callback(GLFWwindow* window, int button, int action, int mode)
 		{
 			Window* win = (Window*)glfwGetWindowUserPointer(window);
 			win->m_MouseButtons[button] = action != GLFW_RELEASE;
@@ -134,5 +147,10 @@ namespace gt3d {
 			win->mx = xpos;
 			win->my = ypos;
 		}
+
+		
+		
+		
+		
 
 }}

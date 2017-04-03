@@ -16,7 +16,7 @@ namespace gt3d {
 		
 		GLuint Shader::load()
 		{
-			GLuint program = glCreateProgram();
+			program = glCreateProgram();
 			GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
 			GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
 			std::ifstream vShaderFile;

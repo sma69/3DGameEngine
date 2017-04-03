@@ -1,148 +1,90 @@
-#include <stdlib.h>
-#include <stdio.h>
 
 #include "mesh.h"
 #include "simple_logger.h"
+
 namespace gt3d {
-	Mesh * mesh_load_from_obj(char * filename)
-	{
-		FILE *file;
-		Mesh *mesh = NULL;
-		char buf[512];
-		int numvertices = 0, numnormals = 0, numtexels = 0, numfaces = 0;
-		int v, t, n, f;
+	namespace graphics {
 
-		if (!filename)
-		{
-			slog("mesh_load_from_obj: no filename provided to load");
-			return NULL;
-		}
-		file = fopen(filename, "r");
-		if (!file)
-		{
-			slog("mesh_load_from_obj: failed top open file %s", filename);
-			return NULL;
-		}
 
-		while (fscanf(file, "%s", buf) != EOF)
+		Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures)
 		{
-			switch (buf[0])
+			this->vertices = vertices;
+			this->indices = indices;
+			this->textures = textures;
+
+			this->setupMesh();
+		}
+		
+		void Mesh::Draw(Shader shader)
+		{
+			// Bind appropriate textures
+			GLuint diffuseNr = 1;
+			GLuint specularNr = 1;
+			for (GLuint i = 0; i < this->textures.size(); i++)
 			{
-			case 'v':
-				switch (buf[1])
-				{
-				case '\0':
-					fgets(buf, sizeof(buf), file);
-					numvertices++;
-					break;
-				case 'n':
-					fgets(buf, sizeof(buf), file);
-					numnormals++;
-					break;
-				case 't':
-					fgets(buf, sizeof(buf), file);
-					numtexels++;
-					break;
-				default:
-					break;
-				}
-				break;
-			case 'f':
-				fgets(buf, sizeof(buf), file);
-				numfaces++;
-				break;
-			default:
-				fgets(buf, sizeof(buf), file);
-				break;
+				glActiveTexture(GL_TEXTURE0 + i); // Active proper texture unit before binding
+												  // Retrieve texture number (the N in diffuse_textureN)
+				std::stringstream ss;
+				std::string number;
+				std::string name = this->textures[i].type;
+				if (name == "texture_diffuse")
+					ss << diffuseNr++; // Transfer GLuint to stream
+				else if (name == "texture_specular")
+					ss << specularNr++; // Transfer GLuint to stream
+				number = ss.str();
+				// Now set the sampler to the correct texture unit
+				glUniform1i(glGetUniformLocation(shader.program, (name + number).c_str()), i);
+				// And finally bind the texture
+				glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
 			}
-		}
-		// allocate the datastructres we need
-		mesh = (Mesh *)malloc(sizeof(Mesh));
-		if (!mesh)
-		{
-			slog("failed to allocate mesh");
-			fclose(file);
-			return NULL;
-		}
-		mesh->tris = (Triangle *)malloc(sizeof(Triangle)*numfaces);
-		mesh->normals = (Vector3D *)malloc(sizeof(Vector3D)*numnormals);
-		mesh->texels = (Vector2D *)malloc(sizeof(Vector2D)*numtexels);
-		mesh->vertices = (Vector3D *)malloc(sizeof(Vector3D)*numvertices);
 
-		rewind(file);
-		v = t = n = f = 0;
-		while (fscanf(file, "%s", buf) != EOF)
-		{
-			switch (buf[0])
+			// Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)
+			glUniform1f(glGetUniformLocation(shader.program, "material.shininess"), 16.0f);
+
+			// Draw mesh
+			glBindVertexArray(this->VAO);
+			glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
+			glBindVertexArray(0);
+
+			// Always good practice to set everything back to defaults once configured.
+			for (GLuint i = 0; i < this->textures.size(); i++)
 			{
-			case 'v':
-				switch (buf[1])
-				{
-				case '\0':
-					fscanf(file, "%f %f %f", &mesh->vertices[v].x, &mesh->vertices[v].y, &mesh->vertices[v].z);
-					v++;
-					break;
-				case 'n':
-					fscanf(file, "%f %f %f", &mesh->normals[n].x, &mesh->normals[n].y, &mesh->normals[n].z);
-					n++;
-					break;
-				case 't':
-					fscanf(file, "%f %f", &mesh->texels[t].x, &mesh->texels[t].y);
-					t++;
-					break;
-				default:
-					break;
-				}
-				break;
-			case 'f':
-				fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d",
-					&mesh->tris[f].c[0].v, &mesh->tris[f].c[0].vt, &mesh->tris[f].c[0].vn,
-					&mesh->tris[f].c[1].v, &mesh->tris[f].c[1].vt, &mesh->tris[f].c[1].vn,
-					&mesh->tris[f].c[2].v, &mesh->tris[f].c[2].vt, &mesh->tris[f].c[2].vn
-				);
-				f++;
-				break;
-			default:
-				fgets(buf, sizeof(buf), file);
-				break;
+				glActiveTexture(GL_TEXTURE0 + i);
+				glBindTexture(GL_TEXTURE_2D, 0);
 			}
 		}
 
-		fclose(file);
-	}
+		void Mesh::setupMesh()
+		{
+			// Create buffers/arrays
+			glGenVertexArrays(1, &this->VAO);
+			glGenBuffers(1, &this->VBO);
+			glGenBuffers(1, &this->EBO);
 
-	void mesh_free(Mesh **mesh)
-	{
-		Mesh *m;
-		if (!mesh)
-		{
-			slog("mesh_free: no mesh pointer provided");
-			return;
+			glBindVertexArray(this->VAO);
+			// Load data into vertex buffers
+			glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
+			// A great thing about structs is that their memory layout is sequential for all its items.
+			// The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
+			// again translates to 3/2 floats which translates to a byte array.
+			glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(Vertex), &this->vertices[0], GL_STATIC_DRAW);
+
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(GLuint), &this->indices[0], GL_STATIC_DRAW);
+
+			// Set the vertex attribute pointers
+			// Vertex Positions
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+			// Vertex Normals
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
+			// Vertex Texture Coords
+			glEnableVertexAttribArray(2);
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
+
+			glBindVertexArray(0);
 		}
-		m = *mesh;
-		if (!m)
-		{
-			slog("mesh_free: no mesh data provided");
-			return;
-		}
-		if (m->tris)
-		{
-			free(m->tris);
-		}
-		if (m->normals)
-		{
-			free(m->normals);
-		}
-		if (m->texels)
-		{
-			free(m->texels);
-		}
-		if (m->vertices)
-		{
-			free(m->vertices);
-		}
-		*mesh = NULL;
-	}
-}
+	}	}
 
 /*eol@eof*/

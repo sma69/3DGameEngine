@@ -20,7 +20,8 @@ namespace gt3d {  namespace graphics {
 		IndexBuffer* m_IndexBuffer;
 		Shader& m_Shader;
 
-		/*The instansiates a sprite in a location with the */
+		/*This draws a rectangle in the specified location
+		@brief good for UI*/
 	public:
 		Renderable2D(glm::vec3 position, glm::vec2 size, glm::vec4 color, Shader& shader)
 			: m_Position(position), m_Size(size), m_Color(color), m_Shader(shader)

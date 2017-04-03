@@ -8,6 +8,7 @@ namespace gt3d {  namespace graphics {
 
 	class Simple2DRenderer : public Renderer2D
 	{
+		/**renders 2D objects*/
 	private:
 		std::deque<const Renderable2D*> m_RenderQueue;
 	public:
