@@ -89,7 +89,7 @@ namespace gt3d {
 			friend static void mouse_button_callback(GLFWwindow* window, int button, int action, int mode);
 			friend static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 
-		
+			
 
 		};
 		

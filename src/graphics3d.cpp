@@ -148,9 +148,7 @@ namespace gt3d {
 			win->my = ypos;
 		}
 
-		
-		
-		
+
 		
 
 }}

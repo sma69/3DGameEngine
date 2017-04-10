@@ -1,7 +1,7 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 
-#include "obj.h"
+#include "model.h"
 #include "maths.h"
 #include "glm/glm.hpp"
 
@@ -15,8 +15,7 @@ namespace gt3d {
 		glm::vec3 rotation;
 		glm::vec3 scale;
 		glm::vec3 color;
-		Obj *objModel;
-		Obj *objAnimation[24];
+		graphics::Model model;
 		int state;
 		float frame;
 

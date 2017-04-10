@@ -51,6 +51,7 @@ int main()
 	//glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
 
 
+
 	glm::mat4 ortho = glm::ortho(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
 
 	/**Initialize my shaders*/ 
@@ -66,7 +67,7 @@ int main()
 	Simple2DRenderer renderer;
 	
 	/**Initialize Models*/
-	Model player("models/BossModel.obj");
+	Model player("BossModel.obj");
 
 	/**Sets Color and lighting*/
 	
@@ -76,11 +77,10 @@ int main()
 	
 	// Draw the loaded model
 	glm::mat4 model;
-	model = glm::translate(model, glm::vec3(1.0f, 2.0f, 0.0f)); // Translate it down a bit so it's at the center of the scene
-	model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// It's a bit too big for our scene, so scale it down
-	glUniformMatrix4fv(glGetUniformLocation(shader.program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-	player.Draw(shader);
+	model = glm::translate(model, glm::vec3(6.0f, 2.5f, 0.0f)); // Translate it down a bit so it's at the center of the scene
+	model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));	// It's a bit too big for our scene, so scale it down
 
+	
 	
 
 	while (!window.closed())
@@ -94,7 +94,9 @@ int main()
 		renderer.submit(&manaBar);
 
 		renderer.flush();
-
+		
+		glUniformMatrix4fv(glGetUniformLocation(shader.program, "ml_matrix"), 1, GL_FALSE, glm::value_ptr(model));
+		player.Draw(shader);
 
 		
 		window.update();
