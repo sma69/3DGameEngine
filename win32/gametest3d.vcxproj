@@ -13,6 +13,8 @@
   <ItemGroup>
     <ClCompile Include="..\src\buffer.cpp" />
     <ClCompile Include="..\src\camera.cpp" />
+    <ClCompile Include="..\src\entity.cpp" />
+    <ClCompile Include="..\src\font.cpp" />
     <ClCompile Include="..\src\gametest3d.cpp" />
     <ClCompile Include="..\src\graphics3d.cpp" />
     <ClCompile Include="..\src\index_buffer.cpp" />
@@ -28,9 +30,10 @@
     <ClCompile Include="..\src\vec3.cpp" />
     <ClCompile Include="..\src\vec4.cpp" />
     <ClCompile Include="..\src\vertex_array.cpp" />
-    <ClCompile Include="entity.cpp" />
+    <ClCompile Include="gui.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\controls.h" />
     <ClInclude Include="..\include\model.h" />
     <ClInclude Include="..\include\buffer.h" />
     <ClInclude Include="..\include\fileUtils.h" />
@@ -61,6 +64,8 @@
   <ItemGroup>
     <None Include="basic.frag" />
     <None Include="basic.vert" />
+    <None Include="fs1.glsl" />
+    <None Include="vs1.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C8351047-707B-4D68-A801-6749E9509337}</ProjectGuid>
@@ -95,7 +100,7 @@
     <LibraryPath>D:\Users\User\IT485\lib\x86;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\..</OutDir>
     <IntDir>$(ProjectDir)\..</IntDir>
-    <SourcePath>D:\Users\User\IT485\gametest3d2017\src;$(SourcePath)</SourcePath>
+    <SourcePath>D:\Users\User\IT485\gametest3d2017\src;D:\Users\User\IT485\gametest3d2017\models;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

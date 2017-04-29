@@ -4,6 +4,8 @@ layout (location = 0) out vec4 color;
 
 uniform vec4 colour;
 uniform vec2 light_pos;
+uniform sampler2D ourTexture1;
+uniform sampler2D ourTexture2;
 
 in DATA
 {

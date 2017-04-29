@@ -1,9 +1,17 @@
-#version 300 es
-layout(location = 0) in vec4 position;
-layout(location = 1) in vec4 color;
-smooth out vec4 theColor;
+#version 330
+
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec3 normal;
+layout (location = 2) in vec2 texCoords;
+
+out vec2 TexCoords;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
 void main()
 {
-	gl_Position = position;
-	theColor = color;
+    gl_Position = projection * view * model * vec4(position, 1.0f);
+    TexCoords = texCoords;
 }

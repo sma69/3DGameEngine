@@ -31,6 +31,7 @@ namespace gt3d {
 
 			// Process ASSIMP's root node recursively
 			this->processNode(scene->mRootNode, scene);
+			std::cout << "model loaded" << std::endl;
 		}
 
 		// Processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
@@ -149,6 +150,7 @@ namespace gt3d {
 					this->textures_loaded.push_back(texture);  // Store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
 				}
 			}
+			std::cout << "textures loaded" << std::endl;
 			return textures;
 		}
 		

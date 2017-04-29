@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Core Files">
       <UniqueIdentifier>{c795efc1-1ee7-4c62-a314-a4edfbbc432e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{9b8a0a5e-05eb-479e-a44c-9a8b026b1344}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\graphics3d.cpp">
@@ -69,7 +72,13 @@
     <ClCompile Include="..\src\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="entity.cpp">
+    <ClCompile Include="..\src\entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -152,6 +161,9 @@
     <ClInclude Include="..\src\font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\controls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="basic.frag">
@@ -159,6 +171,12 @@
     </None>
     <None Include="basic.vert">
       <Filter>Source Files</Filter>
+    </None>
+    <None Include="fs1.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="vs1.glsl">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

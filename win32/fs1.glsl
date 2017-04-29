@@ -1,7 +1,12 @@
-#version 300 es
-smooth in vec4 theColor;
-out vec4 outputColor;
+#version 330 
+
+in vec2 TexCoords;
+uniform vec2 test;
+out vec4 color;
+
+uniform sampler2D texture_diffuse1;
+
 void main()
-{
-	outputColor = theColor;
+{    
+    color = vec4(texture(texture_diffuse1, TexCoords));
 }

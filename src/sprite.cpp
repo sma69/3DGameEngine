@@ -1,7 +1,7 @@
 #include "sprite.h"
 
 namespace gt3d {
-	/**
+	
 	Sprite* loadSprite(const char *fileName, glm::vec2 size)
 	{
 		Sprite* sprite;
@@ -15,6 +15,6 @@ namespace gt3d {
 		
 		return sprite;
 	}
-	*/
+	
 
 }

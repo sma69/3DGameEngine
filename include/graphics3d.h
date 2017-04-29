@@ -25,6 +25,7 @@
 #include <glfw3.h>
 #include <iostream>
 
+#include "camera.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
@@ -43,6 +44,7 @@ namespace gt3d {
 
 #define MAX_KEYS		1024
 #define MAX_BUTTONS		32
+
 
 
 
@@ -66,7 +68,11 @@ namespace gt3d {
 			double mx, my;
 		public:
 
-			Window(const char *name, int width, int height);
+			
+		
+
+
+			Window(GLFWwindow *window, const char *name, int width, int height);
 			~Window();
 			void clear() const;
 			void update();
@@ -75,11 +81,12 @@ namespace gt3d {
 			/*Screen Width*/
 			int getWidth() const { return m_Width; }
 			int getHeight() const { return m_Height; }
-
+			
 			/*Key is Pressed*/
 			bool isKeyPressed(unsigned int keycode) const;
 			bool isMouseButtonPressed(unsigned int button) const;
 			void getMousePosition(double& x, double& y) const;
+			void doMovement();
 		
 		private:
 			bool init();
@@ -92,6 +99,7 @@ namespace gt3d {
 			
 
 		};
+
 		
 	}
 }

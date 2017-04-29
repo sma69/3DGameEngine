@@ -1,17 +1,17 @@
 #pragma once
 #include "renderable2d.h"
+#include "simple2drenderer.h"
+#include "shader.h"
 
 
 namespace gt3d {  namespace graphics {
 
-	class GUI {
 
 
-		Renderable2D Health;
-		Renderable2D Mana;
 
 
-	};
+	void guiInit();
+	void guiRender();
 
 
 } }

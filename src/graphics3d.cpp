@@ -10,11 +10,14 @@ namespace gt3d {
 
 	namespace graphics{
 
+
+
 		void window_resize(GLFWwindow *window, int width, int height);
 
 		/*Get GLFW window called*/
-		Window::Window(const char *title, int width, int height)
+		Window::Window(GLFWwindow *window, const char *title, int width, int height)
 		{
+			m_Window = window;
 			m_Title = title;
 			m_Width = width;
 			m_Height = height;
@@ -147,6 +150,9 @@ namespace gt3d {
 			win->mx = xpos;
 			win->my = ypos;
 		}
+		
+
+		
 
 
 		

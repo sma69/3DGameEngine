@@ -95,8 +95,8 @@ namespace gt3d {
 			glLinkProgram(program);
 			glValidateProgram(program);
 
-			glDeleteShader(vertex);
-			glDeleteShader(fragment);
+			glDetachShader(program, vertex);
+			glDetachShader(program, fragment);
 
 			return program;
 		}

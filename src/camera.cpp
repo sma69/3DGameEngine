@@ -12,6 +12,16 @@ namespace gt3d {
 		this->updateCameraVectors();
 	}
 
+	Camera::Camera(glm::vec3 position) 
+		: Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVTY), Zoom(ZOOM) 
+	{
+		this->Position = position;
+		this->WorldUp = Up;
+		this->Yaw = YAW;
+		this->Pitch = PITCH;
+		this->updateCameraVectors();
+	}
+
 	glm::mat4 Camera::getViewMatrix()
 	{
 		return glm::lookAt(this->Position, this->Position + this->Front, this->Up);
