@@ -33,6 +33,7 @@
 #include "simple2drenderer.h"
 #include "obj.h"
 #include "model.h"
+#include "entity.h"
 #include "camera.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -112,16 +113,17 @@ int main()
 
 
 	/**Initialize Models*/
-	Model player("BossModel.obj");
-
+	Entity *player = newPlayer(glm::vec3(0,0,0), "Swift");
+	Model enemy("cube.obj");
 
 	
-	
-	// Draw the loaded model
-	glm::mat4 model;
-	model = glm::translate(model, glm::vec3(0.0f, -3.0f, -3.0f)); // Translate it down a bit so it's at the center of the scene
-	model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));	// It's a bit too big for our scene, so scale it down
+	// Draw the loaded  player model
+	player->matrix = glm::translate(player->matrix, glm::vec3(0.0f, -3.0f, -3.0f)); // Translate it down a bit so it's at the center of the scene
+	player->matrix = glm::scale(player->matrix, glm::vec3(0.4f, 0.4f, 0.4f));	// It's a bit too big for our scene, so scale it down
 
+	glm::mat4 model2;
+	model2 = glm::translate(model2, glm::vec3(3.0f, -3.0f, -3.0f)); // Translate it down a bit so it's at the center of the scene
+	model2 = glm::scale(model2, glm::vec3(0.4f, 0.4f, 0.4f));	// It's a bit too big for our scene, so scale it down
 	/**Game Loop*/
 	while (!window.closed())
 	{
@@ -132,10 +134,12 @@ int main()
 		//shader.setUniform2f("light_pos", vec2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
 		
 		
-		model = glm::rotate(model, 0.05f ,glm::vec3(0.0f, 1.0f, 0.0f));
+		/*model = glm::rotate(model, 0.05f ,glm::vec3(0.0f, 1.0f, 0.0f));
 		shader2.setUniformMat4("model", model);
-		player.Draw(shader2);
-
+		player.Draw(shader2);*/
+		entityDraw(player, shader2);
+		shader2.setUniformMat4("model", model2);
+		enemy.Draw(shader2);
 	
 		
 		do_Movement();
