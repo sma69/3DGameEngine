@@ -56,17 +56,17 @@ namespace gt3d {
 			friend struct GLFWwindow;
 			const char *m_Title;
 			int m_Width, m_Height;
-			GLFWwindow *m_Window;
 			bool m_Closed;
 
 			
 
 
 			/*Define Keys and buttons*/
+		public:
+			GLFWwindow *m_Window;
 			bool m_Keys[MAX_KEYS];
 			bool m_MouseButtons[MAX_BUTTONS];
 			double mx, my;
-		public:
 
 			
 		

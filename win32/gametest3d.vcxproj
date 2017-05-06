@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\buffer.cpp" />
     <ClCompile Include="..\src\camera.cpp" />
+    <ClCompile Include="..\src\enemy.cpp" />
     <ClCompile Include="..\src\entity.cpp" />
     <ClCompile Include="..\src\font.cpp" />
     <ClCompile Include="..\src\gametest3d.cpp" />
@@ -63,6 +64,8 @@
     <ClInclude Include="..\src\font.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\shaders\lightingFrag.glsl" />
+    <None Include="..\shaders\lightingVert.glsl" />
     <None Include="basic.frag" />
     <None Include="basic.vert" />
     <None Include="fs1.glsl" />
@@ -108,6 +111,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)/models;$(ProjectDir)/shaders</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>

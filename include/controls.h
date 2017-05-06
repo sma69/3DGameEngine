@@ -5,5 +5,5 @@
 
 namespace gt3d {
 
-
+	void loadControls();
 }

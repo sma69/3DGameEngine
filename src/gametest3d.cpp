@@ -39,6 +39,8 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 using namespace gt3d;
+using namespace graphics;
+using namespace glm;
 
 GLFWwindow *w;
 // Camera Properties
@@ -56,8 +58,24 @@ GLfloat pitch = 0.0f;
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
 bool keys[1024];
-void doMovement(glm::mat4 object);
-void do_Movement();
+void doMovement(Window *window, glm::mat4 object);
+void cameraMovement(Window *window, Camera cam, GLfloat dt);
+void doMovement(Window *window, Entity *object)
+{
+	if (window->m_Keys[GLFW_KEY_W])
+		object->transform = glm::translate(object->transform, glm::vec3(0.0f, 0.0f, -1.0f));
+	if (window->m_Keys[GLFW_KEY_S])
+		object->transform = glm::translate(object->transform, glm::vec3(0.0f, 0.0f, 1.0f));
+	if (window->m_Keys[GLFW_KEY_A])
+		object->transform = glm::translate(object->transform, glm::vec3(-1.0f, 0.0f, 0.0f));
+	if (window->m_Keys[GLFW_KEY_D])
+		object->transform = glm::translate(object->transform, glm::vec3(1.0f, 0.0f, 0.0f));
+	if (window->m_Keys[GLFW_KEY_SPACE])
+		object->transform = glm::translate(object->transform, glm::vec3(0.0f, 1.0f, 0.0f));
+	if (window->m_Keys[GLFW_KEY_LEFT_SHIFT])
+		object->transform = glm::translate(object->transform, glm::vec3(0.0f, -1.0f, 0.0f));
+
+}
 
 							//initialize the camera
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -65,24 +83,28 @@ Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 int main()
 {
 	
-	using namespace glm;
-	using namespace graphics;
+	
 
 	Window window(w,"GameTest3D 2017", screenWidth, screenHeight);
+	Window* pWindow = &window;
 	glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
+	
+	entityInit(1024);
 
+	glm::mat4 projection = glm::perspective(camera.Zoom, (float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
+	glm::mat4 view = camera.getViewMatrix();
 
-
-	glm::mat4 ortho = glm::ortho(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
+	//glm::mat4 ortho = glm::ortho(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
 	Shader shader("basic.vert", "basic.frag");
 	Shader shader2("vs1.glsl","fs1.glsl");
+	Shader lightingShader("lightingVert.glsl", "lightingFrag.glsl");
 
 	
 
-	/**Initialize my UI shaders*/ 
+	/**Initialize my UaI shaders*/ 
 	
 	shader.enable();
-	shader.setUniformMat4("pr_matrix", ortho);
+	shader.setUniformMat4("pr_matrix", projection);
 	shader.setUniformMat4("ml_matrix", glm::translate(glm::mat4(1.0f),glm::vec3(0, 0, 0)));
 	
 	/** Initialize interface*/
@@ -96,53 +118,95 @@ int main()
 	shader.setUniform2f("light_pos", vec2(4.0f, 1.5f));
 	shader.setUniform4f("colour", vec4(0.5f, 0.3f, 0.0f, 1.0f));
 
-	renderer.submit(&healthBar);
-	renderer.submit(&manaBar);
 
-	renderer.flush();
+	//renderer.submit(&healthBar);
+	//renderer.submit(&manaBar);
+	//renderer.flush();
 	
 	/** Initialize my Scene Shaders*/
 	
 
-	// Pass the matrices to the shader
-	shader2.enable();
-	glm::mat4 projection = glm::perspective(camera.Zoom, (float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
-	glm::mat4 view = camera.getViewMatrix();
-	shader2.setUniformMat4("projection", projection);
-	shader2.setUniformMat4("view", view);
+	
 
 
 	/**Initialize Models*/
-	Entity *player = newPlayer(glm::vec3(0,0,0), "Swift");
-	Model enemy("cube.obj");
+	Player *player = new Player();
+	Entity *stage = new Entity();
+	FireEnemy *enemy = new FireEnemy();
+	ShockEnemy *enemy2 = new ShockEnemy();
+	IceEnemy *enemy3 = new IceEnemy();
+
+	
 
 	
 	// Draw the loaded  player model
-	player->matrix = glm::translate(player->matrix, glm::vec3(0.0f, -3.0f, -3.0f)); // Translate it down a bit so it's at the center of the scene
-	player->matrix = glm::scale(player->matrix, glm::vec3(0.4f, 0.4f, 0.4f));	// It's a bit too big for our scene, so scale it down
+	
+	player->transform = glm::translate(player->transform, glm::vec3(0.0f, -3.0f, -3.0f)); // Translate it down a bit so it's at the center of the scene
+	player->transform = glm::scale(player->transform, glm::vec3(0.4f, 0.4f, 0.4f));	// It's a bit too big for our scene, so scale it down
 
-	glm::mat4 model2;
-	model2 = glm::translate(model2, glm::vec3(3.0f, -3.0f, -3.0f)); // Translate it down a bit so it's at the center of the scene
-	model2 = glm::scale(model2, glm::vec3(0.4f, 0.4f, 0.4f));	// It's a bit too big for our scene, so scale it down
+	stage->obj = new Model("forestStage/forestStage.obj");
+	stage->transform = glm::scale(player->transform, glm::vec3(1.0f, 0.5f, 1.0f));
+
+
+	enemy->transform = glm::translate(enemy->transform, glm::vec3(3.0f, -3.0f, -7.0f)); // Translate it down a bit so it's at the center of the scene
+	enemy->transform = glm::scale(enemy->transform, glm::vec3(0.4f, 0.4f, 0.4f));	// It's a bit too big for our scene, so scale it down
+
+	enemy2->transform = glm::translate(enemy2->transform, glm::vec3(-5.0f, -2.0f, -7.0f)); // Translate it down a bit so it's at the center of the scene
+	enemy2->transform = glm::scale(enemy2->transform, glm::vec3(0.5f, 0.5f, 0.5f));	// It's a bit too big for our scene, so scale it down
+
+	enemy3->transform = glm::translate(enemy3->transform, glm::vec3(5.0f, -1.0f, -5.0f)); // Translate it down a bit so it's at the center of the scene
+	enemy3->transform = glm::scale(enemy3->transform, glm::vec3(0.7f, 0.7f, 0.7f));	// It's a bit too big for our scene, so scale it down
+	
 	/**Game Loop*/
 	while (!window.closed())
 	{
-		
+		/**Set frame Time*/
+		GLfloat currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
 		window.clear();
 		double x, y;
 		window.getMousePosition(x, y);
 		//shader.setUniform2f("light_pos", vec2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
 		
+		projection = glm::perspective(camera.Zoom, (float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
+		view = camera.getViewMatrix();
+		// Pass the matrices to the shader
+		shader2.enable();
+		shader2.setUniformMat4("projection", projection);
+		shader2.setUniformMat4("view", view);
 		
-		/*model = glm::rotate(model, 0.05f ,glm::vec3(0.0f, 1.0f, 0.0f));
-		shader2.setUniformMat4("model", model);
-		player.Draw(shader2);*/
-		entityDraw(player, shader2);
-		shader2.setUniformMat4("model", model2);
-		enemy.Draw(shader2);
+		enemy->transform = glm::rotate(enemy->transform, 0.05f ,glm::vec3(0.0f, 1.0f, 0.0f));
+		//enemy2->transform = glm::rotate(enemy2->transform, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
+		enemy3->transform = glm::rotate(enemy3->transform, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
+		//player->transform = glm::rotate(player->transform, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
 	
+
+	//shader2.setUniformMat4("model", stage->transform);
+		(*stage).draw(shader2);
+		(*player).draw(shader2);
+		(*enemy).draw(shader2);
+		(*enemy2).draw(shader2);
+		(*enemy3).draw(shader2);
+
+		//Camera lookAt player
+		glm::lookAt(camera.Position, player->position, camera.Up);
+		//player controls
+		doMovement(pWindow, player);
+
+		// Camera controls
+		if (pWindow->m_Keys[GLFW_KEY_UP])
+			camera.ProcessKeyboard(FORWARD, deltaTime);
+		if (pWindow->m_Keys[GLFW_KEY_DOWN])
+			camera.ProcessKeyboard(BACKWARD, deltaTime);
+		if (pWindow->m_Keys[GLFW_KEY_LEFT])
+			camera.ProcessKeyboard(LEFT, deltaTime);
+		if (pWindow->m_Keys[GLFW_KEY_RIGHT])
+			camera.ProcessKeyboard(RIGHT, deltaTime);
+
+		cameraMovement(pWindow, camera, deltaTime);
 		
-		do_Movement();
 		window.update();
 	}
 
@@ -150,28 +214,16 @@ int main()
 	return 0;
 }
 
-void do_Movement()
+void cameraMovement(Window *window, Camera cam, GLfloat dt)
 {
 	// Camera controls
-	if (keys[GLFW_KEY_W])
-		camera.ProcessKeyboard(FORWARD, deltaTime);
-	if (keys[GLFW_KEY_S])
-		camera.ProcessKeyboard(BACKWARD, deltaTime);
-	if (keys[GLFW_KEY_A])
-		camera.ProcessKeyboard(LEFT, deltaTime);
-	if (keys[GLFW_KEY_D])
-		camera.ProcessKeyboard(RIGHT, deltaTime);
-}
-void doMovement(glm::mat4 object)
-{
+	if (window->m_Keys[GLFW_KEY_UP])
+		cam.ProcessKeyboard(FORWARD, dt);
+	if (window->m_Keys[GLFW_KEY_DOWN])
+		cam.ProcessKeyboard(BACKWARD, dt);
+	if (window->m_Keys[GLFW_KEY_LEFT])
+		cam.ProcessKeyboard(LEFT, dt);
+	if (window->m_Keys[GLFW_KEY_RIGHT])
+		cam.ProcessKeyboard(RIGHT, dt);
 
-	// Camera controls
-	if (keys[GLFW_KEY_W])
-		object = glm::translate(object, glm::vec3(0.0f, 1.0f, 0.0f));
-	if (keys[GLFW_KEY_S])
-		object = glm::translate(object, glm::vec3(0.0f, -1.0f, 0.0f));
-	if (keys[GLFW_KEY_A])
-		object = glm::translate(object, glm::vec3(-1.0f, 0.0f, 0.0f));
-	if (keys[GLFW_KEY_D])
-		object = glm::translate(object, glm::vec3(1.0f, 1.0f, 0.0f));
 }

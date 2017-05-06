@@ -98,6 +98,9 @@ namespace gt3d {
 			glDetachShader(program, vertex);
 			glDetachShader(program, fragment);
 
+			glDeleteShader(vertex);
+			glDeleteShader(fragment);
+
 			return program;
 		}
 

@@ -84,6 +84,9 @@
     <ClCompile Include="..\src\player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\fileUtils.h">
@@ -179,6 +182,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="vs1.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\lightingVert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\lightingFrag.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
