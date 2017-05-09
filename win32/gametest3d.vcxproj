@@ -11,8 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\body.cpp" />
     <ClCompile Include="..\src\buffer.cpp" />
     <ClCompile Include="..\src\camera.cpp" />
+    <ClCompile Include="..\src\collisions.cpp" />
     <ClCompile Include="..\src\enemy.cpp" />
     <ClCompile Include="..\src\entity.cpp" />
     <ClCompile Include="..\src\font.cpp" />
@@ -21,6 +23,7 @@
     <ClCompile Include="..\src\index_buffer.cpp" />
     <ClCompile Include="..\src\mat4.cpp" />
     <ClCompile Include="..\src\mesh.cpp" />
+    <ClCompile Include="..\src\mglCallback.cpp" />
     <ClCompile Include="..\src\model.cpp" />
     <ClCompile Include="..\src\obj.cpp" />
     <ClCompile Include="..\src\player.cpp" />
@@ -35,7 +38,10 @@
     <ClCompile Include="gui.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\body.h" />
+    <ClInclude Include="..\include\collisions.h" />
     <ClInclude Include="..\include\controls.h" />
+    <ClInclude Include="..\include\mglCallback.h" />
     <ClInclude Include="..\include\model.h" />
     <ClInclude Include="..\include\buffer.h" />
     <ClInclude Include="..\include\fileUtils.h" />

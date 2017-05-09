@@ -70,6 +70,10 @@ void doMovement(Window *window, Entity *object)
 		object->transform = glm::translate(object->transform, glm::vec3(-1.0f, 0.0f, 0.0f));
 	if (window->m_Keys[GLFW_KEY_D])
 		object->transform = glm::translate(object->transform, glm::vec3(1.0f, 0.0f, 0.0f));
+	if(window->m_Keys[GLFW_KEY_Q])
+		object->transform = glm::rotate(object->transform, -0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
+	if (window->m_Keys[GLFW_KEY_E])
+		object->transform = glm::rotate(object->transform, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
 	if (window->m_Keys[GLFW_KEY_SPACE])
 		object->transform = glm::translate(object->transform, glm::vec3(0.0f, 1.0f, 0.0f));
 	if (window->m_Keys[GLFW_KEY_LEFT_SHIFT])
@@ -94,7 +98,7 @@ int main()
 	glm::mat4 projection = glm::perspective(camera.Zoom, (float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
 	glm::mat4 view = camera.getViewMatrix();
 
-	//glm::mat4 ortho = glm::ortho(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
+	glm::mat4 ortho = glm::ortho(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
 	Shader shader("basic.vert", "basic.frag");
 	Shader shader2("vs1.glsl","fs1.glsl");
 	Shader lightingShader("lightingVert.glsl", "lightingFrag.glsl");
@@ -104,7 +108,7 @@ int main()
 	/**Initialize my UaI shaders*/ 
 	
 	shader.enable();
-	shader.setUniformMat4("pr_matrix", projection);
+	shader.setUniformMat4("pr_matrix", ortho);
 	shader.setUniformMat4("ml_matrix", glm::translate(glm::mat4(1.0f),glm::vec3(0, 0, 0)));
 	
 	/** Initialize interface*/
@@ -119,9 +123,6 @@ int main()
 	shader.setUniform4f("colour", vec4(0.5f, 0.3f, 0.0f, 1.0f));
 
 
-	//renderer.submit(&healthBar);
-	//renderer.submit(&manaBar);
-	//renderer.flush();
 	
 	/** Initialize my Scene Shaders*/
 	
@@ -145,7 +146,7 @@ int main()
 	player->transform = glm::scale(player->transform, glm::vec3(0.4f, 0.4f, 0.4f));	// It's a bit too big for our scene, so scale it down
 
 	stage->obj = new Model("forestStage/forestStage.obj");
-	stage->transform = glm::scale(player->transform, glm::vec3(1.0f, 0.5f, 1.0f));
+	stage->transform = glm::scale(player->transform, glm::vec3(3.0f, 1.0f, 3.0f));
 
 
 	enemy->transform = glm::translate(enemy->transform, glm::vec3(3.0f, -3.0f, -7.0f)); // Translate it down a bit so it's at the center of the scene
@@ -168,8 +169,14 @@ int main()
 		window.clear();
 		double x, y;
 		window.getMousePosition(x, y);
-		//shader.setUniform2f("light_pos", vec2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
+	/*	shader.enable();
+		shader.setUniform2f("light_pos", vec2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
 		
+		renderer.submit(&healthBar);
+		renderer.submit(&manaBar);
+		renderer.flush();*/
+
+
 		projection = glm::perspective(camera.Zoom, (float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
 		view = camera.getViewMatrix();
 		// Pass the matrices to the shader
@@ -179,7 +186,7 @@ int main()
 		
 		enemy->transform = glm::rotate(enemy->transform, 0.05f ,glm::vec3(0.0f, 1.0f, 0.0f));
 		//enemy2->transform = glm::rotate(enemy2->transform, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
-		enemy3->transform = glm::rotate(enemy3->transform, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
+		enemy3->transform = glm::rotate(enemy3->transform, 0.1f, glm::vec3(0.0f, 1.0f, 0.0f));
 		//player->transform = glm::rotate(player->transform, 0.05f, glm::vec3(0.0f, 1.0f, 0.0f));
 	
 

@@ -7,6 +7,7 @@
 
 #include "model.h"
 #include "maths.h"
+#include "body.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
@@ -30,11 +31,11 @@ namespace gt3d {
 		glm::vec3 scale;
 		glm::vec4 color;
 		GLchar* objPath;
-		graphics::Model *obj;
-		
+		graphics::Model *obj;	
 		int state;
 		float frame;
 		graphics::Texture *texture;
+		Body body;
 
 		/**Entity Constructor*/
 		Entity();

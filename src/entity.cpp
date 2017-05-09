@@ -80,17 +80,17 @@ namespace gt3d {
 	//	}
 	//}
 	//
-	//void entityDrawAll(graphics::Shader shaderID)
-	//{
-	//	int i;
-	//	for (i = 0; i < entityMax; i++)
-	//	{
-	//		if (entityList[i].inuse)
-	//		{
-	//			entityDraw(&entityList[i],shaderID);
-	//		}
-	//	}
-	//}
+	void entityDrawAll(graphics::Shader shaderID)
+	{
+		int i;
+		for (i = 0; i < entityMax; i++)
+		{
+			if (entityList[i].inuse)
+			{
+				entityList[i].draw(shaderID);
+			}
+		}
+	}
 
 	//void entityDraw(Entity *ent, graphics::Shader shaderID)
 	//{
